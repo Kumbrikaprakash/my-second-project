@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Developer Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            /* Light Mode Palette */
+            --bg-color: #f8fafc;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --accent: #2563eb;
+            --accent-soft: #dbeafe;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --card-border: rgba(255, 255, 255, 0.4);
+            --nav-bg: rgba(248, 250, 252, 0.8);
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+            --glass-blur: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode Palette */
+            --bg-color: #020617;
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+            --accent: #3b82f6;
+            --accent-soft: #1e293b;
+            --card-bg: rgba(15, 23, 42, 0.7);
+            --card-border: rgba(30, 41, 59, 0.5);
+            --nav-bg: rgba(2, 6, 23, 0.8);
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        ul { list-style: none; }
+        a { text-decoration: none; color: inherit; }
+
+        /* --- Components --- */
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px var(--accent);
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background-color: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* --- Header & Navigation --- */
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        nav {
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* --- Hero Section --- */
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 70px;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-sub);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* --- Sections General --- */
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        /* --- About & Skills --- */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .skill-tag {
+            padding: 0.5rem 1rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* --- Projects --- */
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, var(--accent), #8b5cf6);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        /* --- Experience Timeline --- */
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--accent-soft);
+        }
+
+        .timeline-item {
+            padding-left: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- Contact --- */
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            background: var(--card-bg);
+            color: var(--text-main);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            color: var(--text-sub);
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        /* --- Footer --- */
+
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-sub);
+            font-size: 0.9rem;
+        }
+
+        /* --- Animations --- */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Mobile Responsiveness --- */
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .about-grid, .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .hero h1 { font-size: 3rem; }
+            .hero-btns { flex-direction: column; }
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+    <!-- Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">DEV.PRO</a>
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#contact">Contact</a>
+                    <button class="theme-toggle" id="theme-btn" title="Toggle Dark/Light Mode">
+                        <i data-lucide="moon"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="badge">Available for Work</span>
+                <h1>Crafting Digital Experiences with <span style="color:var(--accent)">Code & AI.</span></h1>
+                <p>Hi, I'm a Web Developer & AI Enthusiast dedicated to building high-performance applications that bridge the gap between human needs and technology.</p>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn btn-primary">Work With Me <i data-lucide="arrow-right"></i></a>
+                    <button class="btn btn-secondary" id="dl-resume">Resume <i data-lucide="download"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="reveal">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div>
+                    <p style="font-size: 1.1rem; color: var(--text-sub); margin-bottom: 1.5rem;">
+                        With over 5 years of experience in the tech ecosystem, I specialize in full-stack development and the integration of LLMs into production environments. My philosophy is simple: write clean code, solve complex problems, and always keep learning.
+                    </p>
+                    <p style="color: var(--text-sub);">
+                        When I'm not coding, you'll find me exploring the latest AI research or contributing to open-source projects that focus on accessibility and performance.
+                    </p>
+                </div>
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 1rem;">Fast Facts</h3>
+                    <ul style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check-circle" style="color:var(--accent); width:18px;"></i> Based in New York, Remote Friendly</li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check-circle" style="color:var(--accent); width:18px;"></i> 50+ Projects Successfully Delivered</li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check-circle" style="color:var(--accent); width:18px;"></i> Open Source Contributor</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="reveal" style="background: var(--accent-soft);">
+        <div class="container">
+            <h2 class="section-title">Technical Expertise</h2>
+            <div class="skills-container" style="justify-content: center;">
+                <span class="skill-tag">HTML5 / CSS3</span>
+                <span class="skill-tag">JavaScript (ES6+)</span>
+                <span class="skill-tag">React / Next.js</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Generative AI / LLMs</span>
+                <span class="skill-tag">PostgreSQL / SQL</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">TypeScript</span>
+                <span class="skill-tag">Docker / AWS</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="reveal">
+        <div class="container">
+            <h2 class="section-title">Selected Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="glass-card project-card">
+                    <div class="project-image">NeuroSync AI</div>
+                    <div class="project-tech">
+                        <span>Next.js</span> • <span>OpenAI</span> • <span>Tailwind</span>
+                    </div>
+                    <h3>NeuroSync AI</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-sub);">A cognitive automation platform that uses fine-tuned LLMs to manage enterprise workflows.</p>
+                    <div class="project-links">
+                        <a href="#" class="social-icon"><i data-lucide="external-link"></i></a>
+                        <a href="#" class="social-icon"><i data-lucide="github"></i></a>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="glass-card project-card">
+                    <div class="project-image" style="background: linear-gradient(45deg, #f59e0b, #ef4444);">CryptoTrack Pro</div>
+                    <div class="project-tech">
+                        <span>React</span> • <span>Web3.js</span> • <span>Node</span>
+                    </div>
+                    <h3>CryptoTrack Pro</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-sub);">Real-time cryptocurrency portfolio tracker with advanced charting and alert systems.</p>
+                    <div class="project-links">
+                        <a href="#" class="social-icon"><i data-lucide="external-link"></i></a>
+                        <a href="#" class="social-icon"><i data-lucide="github"></i></a>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="glass-card project-card">
+                    <div class="project-image" style="background: linear-gradient(45deg, #10b981, #3b82f6);">EcoMaps</div>
+                    <div class="project-tech">
+                        <span>Python</span> • <span>Django</span> • <span>GIS</span>
+                    </div>
+                    <h3>EcoMaps</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-sub);">An interactive environmental data visualization tool used by NGOs globally.</p>
+                    <div class="project-links">
+                        <a href="#" class="social-icon"><i data-lucide="external-link"></i></a>
+                        <a href="#" class="social-icon"><i data-lucide="github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="reveal">
+        <div class="container">
+            <h2 class="section-title">My Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2022 - Present</div>
+                    <h3>Senior Full-Stack Developer</h3>
+                    <p style="color: var(--accent); font-size: 0.9rem; margin-bottom: 0.5rem;">TechFlow Solutions</p>
+                    <p style="font-size: 0.9rem; color: var(--text-sub);">Leading the frontend team in building scalable SaaS products and integrating AI-driven insights for 500k+ monthly active users.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2020 - 2022</div>
+                    <h3>Web Developer</h3>
+                    <p style="color: var(--accent); font-size: 0.9rem; margin-bottom: 0.5rem;">Creative Pulse Agency</p>
+                    <p style="font-size: 0.9rem; color: var(--text-sub);">Developed bespoke digital solutions for high-profile clients in the fashion and fintech industries.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2018 - 2020</div>
+                    <h3>B.tech. in Computer Science</h3>
+                    <p style="color: var(--accent); font-size: 0.9rem; margin-bottom: 0.5rem;">University of Innovation</p>
+                    <p style="font-size: 0.9rem; color: var(--text-sub);">Specialized in Artificial Intelligence and Web Architecture. Graduated with honors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="reveal">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div>
+                    <h3 style="margin-bottom: 1rem;">Let's talk about your next project</h3>
+                    <p style="color: var(--text-sub); margin-bottom: 2rem;">I'm currently open to new opportunities and collaborations. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <i data-lucide="mail" style="color: var(--accent);"></i>
+                            <span>prakashkumbrika@gmail.com</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <i data-lucide="map-pin" style="color: var(--accent);"></i>
+                            <span>jatani, khurdha, bhubaneswar</span>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i data-lucide="github"></i></a>
+                        <a href="#" class="social-icon"><i data-lucide="linkedin"></i></a>
+                        <a href="#" class="social-icon"><i data-lucide="twitter"></i></a>
+                    </div>
+                </div>
+                <div class="glass-card">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" placeholder="prakash kumbrika" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="prakashkumbrika@gmail.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea rows="4" placeholder="How can I help you?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Developer Portfolio. Built with Passion & Precision.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Theme Toggle Logic
+        const themeBtn = document.getElementById('theme-btn');
+        const body = document.body;
+        
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+            
+            // Update icon
+            const icon = themeBtn.querySelector('i');
+            if (newTheme === 'dark') {
+                icon.setAttribute('data-lucide', 'sun');
+            } else {
+                icon.setAttribute('data-lucide', 'moon');
+            }
+            lucide.createIcons();
+        });
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Initial check
+        revealOnScroll();
+
+        // Contact Form Submission (Mock)
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = contactForm.querySelector('button');
+            const originalText = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.innerHTML = 'Sending...';
+            
+            setTimeout(() => {
+                btn.innerHTML = 'Message Sent! <i data-lucide="check"></i>';
+                lucide.createIcons();
+                contactForm.reset();
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    lucide.createIcons();
+                }, 3000);
+            }, 1500);
+        });
+
+        // Resume Download Mock
+        document.getElementById('dl-resume').addEventListener('click', () => {
+            const statusBox = document.createElement('div');
+            statusBox.style.cssText = `
+                position: fixed; bottom: 20px; right: 20px;
+                background: var(--accent); color: white;
+                padding: 1rem 2rem; border-radius: 12px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                z-index: 1001; animation: slideIn 0.3s ease;
+            `;
+            statusBox.innerText = "Resume Download Started...";
+            document.body.appendChild(statusBox);
+            
+            setTimeout(() => {
+                statusBox.style.opacity = '0';
+                setTimeout(() => statusBox.remove(), 500);
+            }, 3000);
+        });
+
+        // Sticky Header effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '0.5rem 0';
+            } else {
+                header.style.padding = '0';
+            }
+        });
+    </script>
+</body>
+</html>
